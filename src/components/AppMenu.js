@@ -173,8 +173,8 @@ const AppMenu = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Button component={Link} to="/dashboard">
-                  Dashboard
+                <Button component={Link} to="/account">
+                  My Account
                 </Button>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
