@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import Header from "./components/Header";
 import ErrorPage from "./components/ErrorPage";
 import About from "./components/About";
-import Contacts from "./components/Contacts";
+import Contact from "./components/Contact";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/account" element={<MyAccount />} />
