@@ -1,7 +1,7 @@
 import React from "react";
-
+import AppMenu from "./AppMenu";
 const Header = () => {
-  return <div>Header</div>;
+  return <AppMenu />;
 };
 
 export default Header;
