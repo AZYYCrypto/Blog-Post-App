@@ -1,17 +1,43 @@
-import { Box, Container } from "@mui/material";
+import { MailOutlined } from "@mui/icons-material";
+import { Button, Container } from "@mui/material";
+
 import React from "react";
-import GoogleButton from "react-google-button";
+import {
+  GoogleLoginButton,
+  FacebookLoginButton,
+  AppleLoginButton,
+  TwitterLoginButton,
+} from "react-social-login-buttons";
+
 const Login = () => {
   return (
     <Container
       sx={{
         display: "flex",
         justifyContent: "center",
+        flexDirection: "column",
+        gap: "1rem",
+        alignItems: "center",
       }}
     >
-      <Box sx={{ paddingTop: "2rem" }}>
-        <GoogleButton sx={{ backgroundColor: "red" }} />
-      </Box>
+      <GoogleLoginButton
+        style={{ maxWidth: "25%", borderRadius: "1rem", marginTop: "2rem" }}
+      />
+      <FacebookLoginButton style={{ maxWidth: "25%", borderRadius: "1rem" }} />
+      <AppleLoginButton style={{ maxWidth: "25%", borderRadius: "1rem" }} />
+      <TwitterLoginButton style={{ maxWidth: "25%", borderRadius: "1rem" }} />
+      <Button
+        sx={{
+          border: "1px solid black",
+          paddingX: "2rem",
+          textTransform: "none",
+          textAlign: "left",
+          color: "black",
+        }}
+        startIcon={<MailOutlined />}
+      >
+        Log in with email
+      </Button>
     </Container>
   );
 };
