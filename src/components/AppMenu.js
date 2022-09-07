@@ -152,7 +152,6 @@ const AppMenu = () => {
           <Box>
             <Button
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
               }}
