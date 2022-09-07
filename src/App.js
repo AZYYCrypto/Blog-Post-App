@@ -9,6 +9,7 @@ import SignUp from "./components/SignUp";
 
 import MyAccount from "./components/MyAccount";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import Footer from "./components/Footer";
 function App() {
   return (
     <AuthContextProvider>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/account" element={<MyAccount />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <Footer />
       </Router>
     </AuthContextProvider>
   );
