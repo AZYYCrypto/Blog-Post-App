@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import LoginIcon from "@mui/icons-material/Login";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 
@@ -151,12 +151,15 @@ const AppMenu = () => {
           </Box>
           <Box>
             <Button
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+              }}
               component={Link}
               to="/login"
-            >
-              Login
-            </Button>
+              endIcon={<LoginIcon />}
+            ></Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
