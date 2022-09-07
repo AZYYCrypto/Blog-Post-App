@@ -16,7 +16,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-const pages = ["Home", "About", "Contact"];
 
 const AppMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -88,11 +87,21 @@ const AppMenu = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Button textAlign="center" component={Link} to="/">
+                  Home
+                </Button>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Button textAlign="center" component={Link} to="/about">
+                  About
+                </Button>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Button textAlign="center" component={Link} to="/contact">
+                  Contact
+                </Button>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
