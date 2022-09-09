@@ -123,45 +123,22 @@ const AppMenu = () => {
           >
             BLOG
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              to="/"
-            >
-              Home
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              to="/about"
-            >
-              About
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              to="/contact"
-            >
-              Contact
-            </Button>
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <Box>
-            <Button
-              sx={{
-                color: "white",
-                display: "block",
-              }}
-              component={Link}
-              to="/login"
-              endIcon={<LoginIcon />}
-            ></Button>
+            <Tooltip title="Login">
+              <Button
+                sx={{
+                  color: "white",
+                  display: "block",
+                }}
+                component={Link}
+                to="/login"
+                endIcon={<LoginIcon />}
+              ></Button>
+            </Tooltip>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Account">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar sx={{ bgcolor: "orange" }}>D</Avatar>
               </IconButton>
