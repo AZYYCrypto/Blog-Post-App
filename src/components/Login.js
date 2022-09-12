@@ -24,7 +24,7 @@ const Login = () => {
     if (user != null) {
       navigate("/account");
     }
-  }, []);
+  }, [user]);
   return (
     <Container
       sx={{
