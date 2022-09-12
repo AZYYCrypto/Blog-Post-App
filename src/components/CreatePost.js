@@ -1,9 +1,22 @@
 import { Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from "../configs/firebase";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+  const postsCollectionRef = collection(db, "posts");
+  const createPost = async () => {
+    await addDoc(postsCollectionRef, {
+      title,
+      description,
+      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+    });
+    navigate("/");
+  };
   return (
     <Container maxWidth="sm">
       <Paper
@@ -42,7 +55,11 @@ const CreatePost = () => {
             setDescription(e.target.value);
           }}
         />
-        <Button variant="contained" sx={{ margin: "1rem" }}>
+        <Button
+          variant="contained"
+          sx={{ margin: "1rem" }}
+          onClick={createPost}
+        >
           Submit Post
         </Button>
       </Paper>
