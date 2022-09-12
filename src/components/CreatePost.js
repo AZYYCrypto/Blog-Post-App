@@ -1,14 +1,9 @@
-import {
-  Button,
-  Container,
-  Paper,
-  TextareaAutosize,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Button, Container, Paper, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 
 const CreatePost = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   return (
     <Container maxWidth="sm">
       <Paper
@@ -32,6 +27,9 @@ const CreatePost = () => {
           label="Title"
           type="text"
           sx={{ margin: "1rem" }}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
         />
         <TextField
           variant="outlined"
@@ -40,6 +38,9 @@ const CreatePost = () => {
           rows={5}
           rowsMax={10}
           sx={{ margin: "1rem" }}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
         />
         <Button variant="contained" sx={{ margin: "1rem" }}>
           Submit Post
