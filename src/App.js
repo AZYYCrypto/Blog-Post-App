@@ -11,6 +11,7 @@ import MyAccount from "./components/MyAccount";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer";
 import CreatePost from "./components/CreatePost";
+import Protected from "./components/Protected";
 function App() {
   return (
     <AuthContextProvider>
@@ -22,8 +23,22 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
-          <Route path="/account" element={<MyAccount />} />
-          <Route path="/create-post" element={<CreatePost />} />
+          <Route
+            path="/account"
+            element={
+              <Protected>
+                <MyAccount />
+              </Protected>
+            }
+          />
+          <Route
+            path="/create-post"
+            element={
+              <Protected>
+                <CreatePost />
+              </Protected>
+            }
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
