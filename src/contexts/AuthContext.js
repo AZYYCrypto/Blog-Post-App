@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithRedirect,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../configs/firebase";
 const AuthContext = createContext();
@@ -21,8 +22,11 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
   };
+  const logOut = () => {
+    signOut(auth);
+  };
   return (
-    <AuthContext.Provider value={{ googleSignIn }}>
+    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
       {children}
     </AuthContext.Provider>
   );
