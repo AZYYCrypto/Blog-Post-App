@@ -55,6 +55,7 @@ const CreatePost = () => {
             setDescription(e.target.value);
           }}
         />
+        <TextField type="file" sx={{ margin: "1rem" }} />
         <Button
           variant="contained"
           sx={{ margin: "1rem" }}
