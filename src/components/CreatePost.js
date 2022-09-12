@@ -1,12 +1,15 @@
 import { Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../configs/firebase";
+import { db, auth, storage } from "../configs/firebase";
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [imageUplaod, setImageUpload] = useState("");
   const navigate = useNavigate();
   const postsCollectionRef = collection(db, "posts");
   const createPost = async () => {
@@ -16,6 +19,11 @@ const CreatePost = () => {
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/");
+    if (imageUplaod == null) return;
+    const imageRef = ref(storage, `images/${imageUplaod.name + v4()}`);
+    uploadBytes(imageRef, imageUplaod).then(() => {
+      console.log("Image Upload!!!");
+    });
   };
   return (
     <Container maxWidth="sm">
@@ -55,7 +63,13 @@ const CreatePost = () => {
             setDescription(e.target.value);
           }}
         />
-        <TextField type="file" sx={{ margin: "1rem" }} />
+        <TextField
+          type="file"
+          sx={{ margin: "1rem" }}
+          onChange={(e) => {
+            setImageUpload(e.target.files[0]);
+          }}
+        />
         <Button
           variant="contained"
           sx={{ margin: "1rem" }}
