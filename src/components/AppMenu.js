@@ -15,12 +15,13 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../contexts/AuthContext";
 const AppMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -35,7 +36,14 @@ const AppMenu = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -124,52 +132,55 @@ const AppMenu = () => {
             BLOG
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-          <Box>
-            <Tooltip title="Login">
-              <Button
-                sx={{
-                  color: "white",
-                  display: "block",
-                }}
-                component={Link}
-                to="/login"
-                endIcon={<LoginIcon />}
-              ></Button>
-            </Tooltip>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Account">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: "orange" }}>D</Avatar>
-              </IconButton>
-            </Tooltip>
+          {user?.displayName ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Account">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar sx={{ bgcolor: "orange" }}>D</Avatar>
+                </IconButton>
+              </Tooltip>
 
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Button component={Link} to="/account">
-                  My Account
-                </Button>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Button>Logout</Button>
-              </MenuItem>
-            </Menu>
-          </Box>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button component={Link} to="/account">
+                    My Account
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button onClick={handleSignOut}>Logout</Button>
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : (
+            <Box>
+              <Tooltip title="Login">
+                <Button
+                  sx={{
+                    color: "white",
+                    display: "block",
+                  }}
+                  component={Link}
+                  to="/login"
+                  endIcon={<LoginIcon />}
+                ></Button>
+              </Tooltip>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
