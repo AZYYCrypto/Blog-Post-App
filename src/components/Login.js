@@ -1,16 +1,18 @@
 import { MailOutlined } from "@mui/icons-material";
 import { Button, Container } from "@mui/material";
 import { UserAuth } from "../contexts/AuthContext";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   GoogleLoginButton,
   FacebookLoginButton,
   AppleLoginButton,
   TwitterLoginButton,
 } from "react-social-login-buttons";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { googleSignIn } = UserAuth();
+  const { googleSignIn, user } = UserAuth();
+  const navigate = useNavigate();
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -18,6 +20,11 @@ const Login = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (user != null) {
+      navigate("/account");
+    }
+  }, []);
   return (
     <Container
       sx={{
