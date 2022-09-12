@@ -1,6 +1,6 @@
 import { MailOutlined } from "@mui/icons-material";
 import { Button, Container } from "@mui/material";
-
+import { UserAuth } from "../contexts/AuthContext";
 import React from "react";
 import {
   GoogleLoginButton,
@@ -10,6 +10,14 @@ import {
 } from "react-social-login-buttons";
 
 const Login = () => {
+  const { googleSignIn } = UserAuth();
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container
       sx={{
@@ -22,6 +30,7 @@ const Login = () => {
     >
       <GoogleLoginButton
         style={{ maxWidth: "25%", borderRadius: "1rem", marginTop: "2rem" }}
+        onClick={handleGoogleSignIn}
       />
       <FacebookLoginButton style={{ maxWidth: "25%", borderRadius: "1rem" }} />
       <AppleLoginButton style={{ maxWidth: "25%", borderRadius: "1rem" }} />
