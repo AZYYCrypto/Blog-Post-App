@@ -44,7 +44,7 @@ const Post = () => {
             <CardHeader
               avatar={<Avatar aria-label="recipe"></Avatar>}
               title={post.title}
-              subheader="September 14, 2016"
+              subheader={`${post.author.name} · September 14, 2016`}
             />
             <CardMedia
               component="img"
