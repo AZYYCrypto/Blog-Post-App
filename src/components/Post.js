@@ -47,9 +47,9 @@ const Post = () => {
                 avatar={<Avatar aria-label="recipe"></Avatar>}
                 action={
                   <>
-                    <IconButton aria-label="settings">
+                    {/* <IconButton aria-label="settings">
                       <EditIcon />
-                    </IconButton>
+                    </IconButton> */}
 
                     <DeleteDocIcon id={id} imageUrl={imageUrl} />
                   </>
