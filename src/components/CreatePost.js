@@ -13,6 +13,10 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const postsCollectionRef = collection(db, "posts");
   const createPost = async () => {
+    if (!title || !description || !imageUplaod) {
+      alert("Please fill all the fields");
+      return;
+    }
     await addDoc(postsCollectionRef, {
       title,
       description,
