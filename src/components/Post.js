@@ -37,13 +37,13 @@ const Post = () => {
 
   return (
     <StyledPageContainer>
-      {postList.map(({ id, title, author, description }) => {
+      {postList.map(({ id, title, author, description, createdAt }) => {
         return (
           <Card sx={{ borderRadius: "20px" }} key={id}>
             <CardHeader
               avatar={<Avatar aria-label="recipe"></Avatar>}
               title={title}
-              subheader={`${author.name} · September 14, 2016`}
+              subheader={`${author.name} · ${createdAt}`}
             />
             <CardMedia
               component="img"

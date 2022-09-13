@@ -1,6 +1,6 @@
 import { Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db, auth, storage } from "../configs/firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -17,7 +17,7 @@ const CreatePost = () => {
       title,
       description,
       imageUrl: "here image url",
-      createdAt: "data na syzdavane",
+      createdAt: Timestamp.now().toDate().toDateString(),
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/");
