@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { FavoriteBorder, Favorite } from "@mui/icons-material/";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
@@ -43,6 +45,16 @@ const Post = () => {
             <Card sx={{ borderRadius: "20px" }} key={id}>
               <CardHeader
                 avatar={<Avatar aria-label="recipe"></Avatar>}
+                action={
+                  <>
+                    <IconButton aria-label="settings">
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="settings">
+                      <DeleteIcon />
+                    </IconButton>
+                  </>
+                }
                 title={title}
                 subheader={`${author.name} · ${createdAt}`}
               />
