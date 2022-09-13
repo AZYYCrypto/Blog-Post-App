@@ -13,11 +13,11 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { FavoriteBorder, Favorite } from "@mui/icons-material/";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../configs/firebase";
+import DeleteDocIcon from "./DeleteDocIcon.js";
 const Post = () => {
   const [postList, setPostList] = useState([]);
   const postsCollectionRef = collection(db, "posts");
@@ -50,9 +50,8 @@ const Post = () => {
                     <IconButton aria-label="settings">
                       <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="settings">
-                      <DeleteIcon />
-                    </IconButton>
+
+                    <DeleteDocIcon id={id} imageUrl={imageUrl} />
                   </>
                 }
                 title={title}
