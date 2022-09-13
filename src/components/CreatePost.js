@@ -16,6 +16,8 @@ const CreatePost = () => {
     await addDoc(postsCollectionRef, {
       title,
       description,
+      imageUrl: "here image url",
+      createdAt: "data na syzdavane",
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/");
