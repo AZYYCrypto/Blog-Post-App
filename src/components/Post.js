@@ -37,13 +37,13 @@ const Post = () => {
 
   return (
     <StyledPageContainer>
-      {postList.map((post) => {
+      {postList.map(({ id, title, author, description }) => {
         return (
-          <Card sx={{ borderRadius: "20px" }}>
+          <Card sx={{ borderRadius: "20px" }} key={id}>
             <CardHeader
               avatar={<Avatar aria-label="recipe"></Avatar>}
-              title={post.title}
-              subheader={`${post.author.name} · September 14, 2016`}
+              title={title}
+              subheader={`${author.name} · September 14, 2016`}
             />
             <CardMedia
               component="img"
@@ -53,7 +53,7 @@ const Post = () => {
             />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                {post.description}
+                {description}
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
