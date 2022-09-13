@@ -39,9 +39,10 @@ const CreatePost = () => {
             id: auth.currentUser.uid,
           },
         });
+        setImageUpload(null);
+        navigate("/");
       });
     });
-    navigate("/");
   };
   return (
     <Container maxWidth="sm">
