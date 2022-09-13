@@ -9,11 +9,11 @@ import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUplaod, setImageUpload] = useState("");
+  const [imageUpload, setImageUpload] = useState("");
   const navigate = useNavigate();
   const postsCollectionRef = collection(db, "posts");
   const createPost = async () => {
-    if (!title || !description || !imageUplaod) {
+    if (!title || !description || !imageUpload) {
       alert("Please fill all the fields");
       return;
     }
@@ -25,9 +25,9 @@ const CreatePost = () => {
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/");
-    if (imageUplaod == null) return;
-    const imageRef = ref(storage, `images/${imageUplaod.name + v4()}`);
-    uploadBytes(imageRef, imageUplaod).then(() => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
       console.log("Image Upload!!!");
     });
   };
