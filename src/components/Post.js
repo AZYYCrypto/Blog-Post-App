@@ -37,39 +37,41 @@ const Post = () => {
 
   return (
     <StyledPageContainer>
-      {postList.map(({ id, title, author, description, createdAt }) => {
-        return (
-          <Card sx={{ borderRadius: "20px" }} key={id}>
-            <CardHeader
-              avatar={<Avatar aria-label="recipe"></Avatar>}
-              title={title}
-              subheader={`${author.name} · ${createdAt}`}
-            />
-            <CardMedia
-              component="img"
-              height="500"
-              image="https://www.zdnet.com/a/img/resize/adcb2eb2cc3f5562f7e80931308e2a08b01947ce/2019/08/19/4a663776-f4a9-4f89-9bee-2d07ee052f5b/istock-1147195672-11.jpg?auto=webp&fit=crop&height=900&width=1200"
-              alt="Paella dish"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                {description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <Checkbox
-                  icon={<FavoriteBorder />}
-                  checkedIcon={<Favorite sx={{ color: "red" }} />}
-                />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
-        );
-      })}
+      {postList.map(
+        ({ id, title, author, description, createdAt, imageUrl }) => {
+          return (
+            <Card sx={{ borderRadius: "20px" }} key={id}>
+              <CardHeader
+                avatar={<Avatar aria-label="recipe"></Avatar>}
+                title={title}
+                subheader={`${author.name} · ${createdAt}`}
+              />
+              <CardMedia
+                component="img"
+                height="500"
+                image={imageUrl}
+                alt="Paella dish"
+              />
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {description}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                  <Checkbox
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite sx={{ color: "red" }} />}
+                  />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          );
+        }
+      )}
     </StyledPageContainer>
   );
 };

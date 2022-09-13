@@ -2,7 +2,7 @@ import { Button, Container, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db, auth, storage } from "../configs/firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
@@ -17,19 +17,31 @@ const CreatePost = () => {
       alert("Please fill all the fields");
       return;
     }
-    await addDoc(postsCollectionRef, {
-      title,
-      description,
-      imageUrl: "here image url",
-      createdAt: Timestamp.now().toDate().toDateString(),
-      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
-    });
-    navigate("/");
+    // await addDoc(postsCollectionRef, {
+    //   title,
+    //   description,
+    //   imageUrl: url,
+    //   createdAt: Timestamp.now().toDate().toDateString(),
+    //   author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+    // });
+
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then(() => {
-      console.log("Image Upload!!!");
+    await uploadBytes(imageRef, imageUpload).then(() => {
+      getDownloadURL(imageRef).then((url) => {
+        addDoc(postsCollectionRef, {
+          title,
+          description,
+          imageUrl: url,
+          createdAt: Timestamp.now().toDate().toDateString(),
+          author: {
+            name: auth.currentUser.displayName,
+            id: auth.currentUser.uid,
+          },
+        });
+      });
     });
+    navigate("/");
   };
   return (
     <Container maxWidth="sm">
