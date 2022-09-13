@@ -27,7 +27,7 @@ const Post = () => {
       setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getPosts();
-  }, []);
+  }, [postList]);
 
   const StyledPageContainer = styled(Container)({
     display: "flex",
