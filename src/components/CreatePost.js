@@ -29,7 +29,7 @@ const CreatePost = () => {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     await uploadBytes(imageRef, imageUpload).then(() => {
       getDownloadURL(imageRef).then((url) => {
-        addDoc(postsCollectionRef, {
+        return addDoc(postsCollectionRef, {
           title,
           description,
           imageUrl: url,
@@ -38,9 +38,11 @@ const CreatePost = () => {
             name: auth.currentUser.displayName,
             id: auth.currentUser.uid,
           },
+        }).then((res) => {
+          setImageUpload(null);
+          navigate("/");
+          console.log(res);
         });
-        setImageUpload(null);
-        navigate("/");
       });
     });
   };
