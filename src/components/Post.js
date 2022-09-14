@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import DeleteDocIcon from "./DeleteDocIcon.js";
+import Loading from "./Loading";
 const Post = () => {
   const [postList, setPostList] = useState([]);
   const postsCollectionRef = collection(db, "posts");
@@ -39,49 +40,53 @@ const Post = () => {
 
   return (
     <StyledPageContainer>
-      {postList.map(
-        ({ id, title, author, description, createdAt, imageUrl }) => {
-          return (
-            <Card sx={{ borderRadius: "20px" }} key={id}>
-              <CardHeader
-                avatar={<Avatar aria-label="recipe"></Avatar>}
-                action={
-                  <>
-                    {/* <IconButton aria-label="settings">
+      {postList.length === 0 ? (
+        <Loading />
+      ) : (
+        postList.map(
+          ({ id, title, author, description, createdAt, imageUrl }) => {
+            return (
+              <Card sx={{ borderRadius: "20px" }} key={id}>
+                <CardHeader
+                  avatar={<Avatar aria-label="recipe"></Avatar>}
+                  action={
+                    <>
+                      {/* <IconButton aria-label="settings">
                       <EditIcon />
                     </IconButton> */}
 
-                    <DeleteDocIcon id={id} imageUrl={imageUrl} />
-                  </>
-                }
-                title={title}
-                subheader={`${author.name} · ${createdAt}`}
-              />
-              <CardMedia
-                component="img"
-                height="530"
-                image={imageUrl}
-                alt="Paella dish"
-              />
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  {description}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <Checkbox
-                    icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite sx={{ color: "red" }} />}
-                  />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          );
-        }
+                      <DeleteDocIcon id={id} imageUrl={imageUrl} />
+                    </>
+                  }
+                  title={title}
+                  subheader={`${author.name} · ${createdAt}`}
+                />
+                <CardMedia
+                  component="img"
+                  height="530"
+                  image={imageUrl}
+                  alt="Paella dish"
+                />
+                <CardContent>
+                  <Typography variant="body2" color="text.secondary">
+                    {description}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to favorites">
+                    <Checkbox
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite sx={{ color: "red" }} />}
+                    />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+            );
+          }
+        )
       )}
     </StyledPageContainer>
   );
