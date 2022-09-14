@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import ErrorPage from "./components/ErrorPage";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import Login from "./components/Login";
+import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
 import MyAccount from "./components/MyAccount";
@@ -21,7 +21,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
           <Route
             path="/account"
