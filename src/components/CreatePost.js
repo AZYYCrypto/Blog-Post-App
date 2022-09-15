@@ -12,22 +12,15 @@ const CreatePost = () => {
   const [imageUpload, setImageUpload] = useState("");
   const navigate = useNavigate();
   const postsCollectionRef = collection(db, "posts");
-  const createPost = async () => {
+  const createPost = () => {
     if (!title || !description || !imageUpload) {
       alert("Please fill all the fields");
       return;
     }
-    // await addDoc(postsCollectionRef, {
-    //   title,
-    //   description,
-    //   imageUrl: url,
-    //   createdAt: Timestamp.now().toDate().toDateString(),
-    //   author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
-    // });
 
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    await uploadBytes(imageRef, imageUpload).then(() => {
+    uploadBytes(imageRef, imageUpload).then(() => {
       getDownloadURL(imageRef).then((url) => {
         return addDoc(postsCollectionRef, {
           title,
