@@ -99,7 +99,7 @@ const SignIn = () => {
             </Typography>
             <Typography>
               Do you have an account?
-              <Link to="#" style={{ color: "#1976D2" }}>
+              <Link to="/register" style={{ color: "#1976D2" }}>
                 Sign Up
               </Link>
             </Typography>
