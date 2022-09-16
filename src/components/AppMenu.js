@@ -39,7 +39,7 @@ const AppMenu = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.log(error.message);
     }
