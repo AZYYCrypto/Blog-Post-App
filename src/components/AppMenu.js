@@ -41,7 +41,7 @@ const AppMenu = () => {
       await logOut();
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   return (
