@@ -132,7 +132,7 @@ const AppMenu = () => {
             BLOG
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-          {user?.displayName ? (
+          {user?.email || user?.displayName ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Account">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

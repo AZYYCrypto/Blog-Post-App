@@ -10,7 +10,9 @@ const MyAccount = () => {
       <Typography variant="h5" sx={{ textAlign: "center", marginTop: "1rem" }}>
         My Account
       </Typography>
-      <Typography>Welcome , {user?.displayName}</Typography>
+      <Typography>
+        Welcome , {(user && user.email) || user?.displayName}
+      </Typography>
       <Button variant="contained" component={Link} to="/create-post">
         Create Post
       </Button>
