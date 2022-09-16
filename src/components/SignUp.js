@@ -14,14 +14,28 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { UserAuth } from "../contexts/AuthContext";
 
 const SignUp = () => {
-  const { googleSignIn, user } = UserAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { googleSignIn, user, createUser } = UserAuth();
   const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await createUser(email, password);
+      navigate("/account");
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -41,6 +55,8 @@ const SignUp = () => {
         flexDirection: "column",
         gap: "1rem",
       }}
+      component="form"
+      onSubmit={handleSubmit}
     >
       <Container maxWidth="sm">
         <Paper
@@ -56,6 +72,7 @@ const SignUp = () => {
             <Avatar sx={{ backgroundColor: "#1976D2" }}>
               <AddCircleOutlineOutlinedIcon />
             </Avatar>
+
             <Typography variant="h4" sx={{ marginTop: "1rem" }}>
               Sign Up
             </Typography>
@@ -84,6 +101,9 @@ const SignUp = () => {
                 type="email"
                 sx={{ margin: "1rem" }}
                 required
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
               <Box
                 sx={{
@@ -120,6 +140,9 @@ const SignUp = () => {
                 type="password"
                 sx={{ margin: "1rem" }}
                 required
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
               <TextField
                 id="outlined-title-input"
@@ -134,7 +157,7 @@ const SignUp = () => {
                 label="I accept the terms and conditions"
                 sx={{ marginLeft: "0.3rem" }}
               />
-              <Button variant="contained" sx={{ margin: "1rem" }}>
+              <Button type="submit" variant="contained" sx={{ margin: "1rem" }}>
                 Sign up
               </Button>
               <Box
