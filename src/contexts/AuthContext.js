@@ -23,6 +23,9 @@ export const AuthContextProvider = ({ children }) => {
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
+  const signIn = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
@@ -31,7 +34,9 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user, createUser }}>
+    <AuthContext.Provider
+      value={{ googleSignIn, logOut, user, createUser, signIn }}
+    >
       {children}
     </AuthContext.Provider>
   );
