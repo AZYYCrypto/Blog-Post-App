@@ -20,13 +20,16 @@ import { db } from "../configs/firebase";
 import DeleteDocIcon from "./DeleteDocIcon.js";
 import Loading from "./Loading";
 const Post = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [postList, setPostList] = useState([]);
   const postsCollectionRef = collection(db, "posts");
+
+  const getPosts = async () => {
+    const data = await getDocs(postsCollectionRef);
+    setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const getPosts = async () => {
-      const data = await getDocs(postsCollectionRef);
-      setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getPosts();
   }, []);
 
@@ -38,10 +41,23 @@ const Post = () => {
     paddingBottom: "4rem",
   });
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <StyledPageContainer>
       {postList.length === 0 ? (
-        <Loading />
+        <Typography
+          variant="h4"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          No Posts Yet
+        </Typography>
       ) : (
         postList.map(
           ({ id, title, author, description, createdAt, imageUrl }) => {
@@ -55,7 +71,11 @@ const Post = () => {
                       <EditIcon />
                     </IconButton> */}
 
-                      <DeleteDocIcon id={id} imageUrl={imageUrl} />
+                      <DeleteDocIcon
+                        setPostList={setPostList}
+                        id={id}
+                        imageUrl={imageUrl}
+                      />
                     </>
                   }
                   title={title}
