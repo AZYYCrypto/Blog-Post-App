@@ -8,6 +8,7 @@ const Loading = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
+        marginTop: "2rem",
       }}
     >
       <CircularProgress />
