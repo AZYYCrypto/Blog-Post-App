@@ -96,17 +96,25 @@ const AppMenu = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button textAlign="center" component={Link} to="/">
+                <Button sx={{ textAlign: "center" }} component={Link} to="/">
                   Home
                 </Button>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button textAlign="center" component={Link} to="/about">
+                <Button
+                  sx={{ textAlign: "center" }}
+                  component={Link}
+                  to="/about"
+                >
                   About
                 </Button>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button textAlign="center" component={Link} to="/contact">
+                <Button
+                  sx={{ textAlign: "center" }}
+                  component={Link}
+                  to="/contact"
+                >
                   Contact
                 </Button>
               </MenuItem>
