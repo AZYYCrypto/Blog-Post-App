@@ -54,6 +54,7 @@ const Post = () => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
+            marginTop: "2rem",
           }}
         >
           No Posts Yet
