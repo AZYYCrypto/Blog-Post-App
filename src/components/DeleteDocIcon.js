@@ -5,8 +5,9 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../configs/firebase";
 import { deleteObject, ref } from "firebase/storage";
 
-const DeleteDocIcon = ({ imageUrl, id }) => {
+const DeleteDocIcon = ({ imageUrl, id, setPostList }) => {
   const handleDeletePost = async () => {
+    setPostList((oldpost) => oldpost.filter((post) => post.id !== id));
     try {
       await deleteDoc(doc(db, "posts", id));
       const storageRef = ref(storage, imageUrl);
