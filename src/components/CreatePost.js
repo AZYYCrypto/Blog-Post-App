@@ -31,10 +31,9 @@ const CreatePost = () => {
             name: auth.currentUser.displayName,
             id: auth.currentUser.uid,
           },
-        }).then((res) => {
+        }).then(() => {
           setImageUpload(null);
           navigate("/");
-          console.log(res);
         });
       });
     });
