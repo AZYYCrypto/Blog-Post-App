@@ -1,4 +1,4 @@
-import { LockOutlined, MailOutlined } from "@mui/icons-material";
+import { LockOutlined } from "@mui/icons-material";
 import {
   Avatar,
   Box,
