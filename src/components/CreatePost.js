@@ -1,12 +1,15 @@
-import { Button, Container, Paper, TextField, Typography } from "@mui/material";
+import { Container, Paper, TextField, Typography } from "@mui/material";
+
 import { useState } from "react";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db, auth, storage } from "../configs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { LoadingButton } from "@mui/lab";
 
 const CreatePost = () => {
+  const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUpload, setImageUpload] = useState("");
@@ -37,6 +40,7 @@ const CreatePost = () => {
         });
       });
     });
+    setLoadingSubmitPost(true);
   };
   return (
     <Container maxWidth="sm">
@@ -83,13 +87,17 @@ const CreatePost = () => {
             setImageUpload(e.target.files[0]);
           }}
         />
-        <Button
+
+        <LoadingButton
+          loading={loadingSubmitPost}
+          loadingPosition="center"
           variant="contained"
           sx={{ margin: "1rem" }}
+          onChange={() => setLoadingSubmitPost(!loadingSubmitPost)}
           onClick={createPost}
         >
           Submit Post
-        </Button>
+        </LoadingButton>
       </Paper>
     </Container>
   );
