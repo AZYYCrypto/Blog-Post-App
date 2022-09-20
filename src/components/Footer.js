@@ -41,7 +41,7 @@ export default function Footer() {
           </Grid>
           <Grid item xs={12} sm={1.3}>
             <Box
-              to="/"
+              to="/terms-and-conditions"
               component={Link}
               sx={{ color: "white", textDecoration: "none" }}
             >

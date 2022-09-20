@@ -12,6 +12,7 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer";
 import CreatePost from "./components/CreatePost";
 import Protected from "./components/Protected";
+import TermsAndConditions from "./components/TermsAndConditions";
 function App() {
   return (
     <AuthContextProvider>
@@ -21,6 +22,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
           <Route
