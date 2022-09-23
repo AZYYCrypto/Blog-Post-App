@@ -15,6 +15,7 @@ const CreatePost = () => {
   const [imageUpload, setImageUpload] = useState("");
   const navigate = useNavigate();
   const postsCollectionRef = collection(db, "posts");
+
   const createPost = () => {
     if (!title || !description || !imageUpload) {
       alert("Please fill all the fields");
@@ -31,7 +32,7 @@ const CreatePost = () => {
           imageUrl: url,
           createdAt: Timestamp.now().toDate().toDateString(),
           author: {
-            name: auth.currentUser.displayName,
+            name: auth.currentUser.email,
             id: auth.currentUser.uid,
           },
         }).then(() => {
