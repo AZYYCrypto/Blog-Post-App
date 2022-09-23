@@ -111,6 +111,7 @@ const SignIn = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              marginBottom: "2rem",
             }}
           >
             <Typography>
