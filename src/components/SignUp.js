@@ -175,7 +175,7 @@ const SignUp = () => {
                 </Typography>
               </Box>
 
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -192,7 +192,7 @@ const SignUp = () => {
                 >
                   Continue with Google
                 </GoogleLoginButton>
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
         </Paper>
