@@ -1,6 +1,6 @@
 # Blog-Post-App
 
-### Open Project - `https://blog-post-application.netlify.app/`
+### Open Project - [An Internal Link](https://blog-post-application.netlify.app/)
 
 ## Available Scripts
 
