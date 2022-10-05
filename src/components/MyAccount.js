@@ -1,6 +1,5 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import React from "react";
-import CreatePost from "./CreatePost";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../contexts/AuthContext";
 const MyAccount = () => {
