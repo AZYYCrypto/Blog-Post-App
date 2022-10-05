@@ -32,7 +32,7 @@ const CreatePost = () => {
           imageUrl: url,
           createdAt: Timestamp.now().toDate().toDateString(),
           author: {
-            name: auth.currentUser.email,
+            name: auth.currentUser.displayName,
             id: auth.currentUser.uid,
           },
         }).then(() => {

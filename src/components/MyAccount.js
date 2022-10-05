@@ -10,7 +10,8 @@ const MyAccount = () => {
         My Account
       </Typography>
       <Typography>
-        Welcome , {(user && user.email) || user?.displayName}
+        {/* Welcome , {(user && user.email) || user?.displayName} */}
+        Welcome , {user?.displayName}
       </Typography>
       <Button variant="contained" component={Link} to="/create-post">
         Create Post
