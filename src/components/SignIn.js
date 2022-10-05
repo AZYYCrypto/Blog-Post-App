@@ -15,21 +15,31 @@ import { UserAuth } from "../contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const initialStateFormValues = {
+    email: "",
+    password: "",
+    remeberMe: false,
+  };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Plaase enter valid email").required("Required"),
+    password: Yup.string().required("Required"),
+  });
   const { googleSignIn, user, signIn } = UserAuth();
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+
+  const handleSubmit = async (values, { resetForm, setSubmiting }) => {
+    setTimeout(() => {
+      resetForm();
+      setSubmiting(false);
+    }, 800);
     try {
-      await signIn(email, password);
+      await signIn(values.email, values.password);
       navigate("/account");
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     }
   };
   const handleGoogleSignIn = async () => {
@@ -53,8 +63,6 @@ const SignIn = () => {
         gap: "1rem",
         alignItems: "center",
       }}
-      component="form"
-      onSubmit={handleSubmit}
     >
       <Container maxWidth="sm">
         <Paper
@@ -74,38 +82,62 @@ const SignIn = () => {
               Sign In
             </Typography>
           </Grid>
+          <Formik
+            initialValues={initialStateFormValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            {(props) => (
+              <Form style={{ display: "flex", flexDirection: "column" }}>
+                <Field
+                  as={TextField}
+                  id="outlined-title-input"
+                  label="Email"
+                  name="email"
+                  placeholder="Enter email"
+                  type="text"
+                  sx={{ margin: "1rem" }}
+                  required
+                  helperText={
+                    <ErrorMessage name="email">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  }
+                />
+                <Field
+                  as={TextField}
+                  id="outlined-title-input"
+                  label="Password"
+                  name="password"
+                  placeholder="Enter password"
+                  type="password"
+                  sx={{ margin: "1rem" }}
+                  required
+                  helperText={
+                    <ErrorMessage name="password">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  }
+                />
 
-          <TextField
-            id="outlined-title-input"
-            label="Email"
-            placeholder="Enter email"
-            type="text"
-            sx={{ margin: "1rem" }}
-            required
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <TextField
-            id="outlined-title-input"
-            label="Password"
-            placeholder="Enter password"
-            type="password"
-            sx={{ margin: "1rem" }}
-            required
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-
-          <FormControlLabel
-            sx={{ marginLeft: "0.3rem" }}
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Remember Me"
-          />
-          <Button type="submit" variant="contained" sx={{ margin: "1rem" }}>
-            Sign in
-          </Button>
+                <Field
+                  as={FormControlLabel}
+                  sx={{ marginLeft: "0.3rem" }}
+                  control={<Checkbox color="primary" />}
+                  label="Remember Me"
+                  name="remeberMe"
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={props.isSubmitting}
+                  sx={{ margin: "1rem" }}
+                >
+                  {props.isSubmitting ? "Loading.." : "Sign In "}
+                </Button>
+              </Form>
+            )}
+          </Formik>
           <Box
             sx={{
               display: "flex",
