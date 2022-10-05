@@ -21,6 +21,8 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { UserAuth } from "../contexts/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../configs/firebase";
 const SignUp = () => {
   const initialStateValuesForm = {
     firstName: "",
@@ -64,11 +66,14 @@ const SignUp = () => {
       setSubmitting(false);
     }, 800);
     try {
-      await createUser(
-        values.email,
-
-        values.password
-      );
+      const { user } = await createUser(values.email, values.password);
+      const usersCollectionRef = collection(db, "users");
+      await addDoc(usersCollectionRef, {
+        id: user.uid,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        gender: values.gender,
+      });
       navigate("/account");
     } catch (error) {
       console.log(error.message);
