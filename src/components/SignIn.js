@@ -24,8 +24,10 @@ const SignIn = () => {
     rememberMe: false,
   };
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Plaase enter valid email").required("Required"),
-    password: Yup.string().required("Required"),
+    email: Yup.string()
+      .email("Plaase enter valid email")
+      .required("Email is Required"),
+    password: Yup.string().required("Password is Required"),
   });
   const { googleSignIn, user, signIn } = UserAuth();
   const navigate = useNavigate();
@@ -41,6 +43,7 @@ const SignIn = () => {
     } catch (error) {
       console.log(error.message);
     }
+    console.log(user);
   };
   const handleGoogleSignIn = async () => {
     try {
