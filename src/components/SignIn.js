@@ -21,7 +21,7 @@ const SignIn = () => {
   const initialStateFormValues = {
     email: "",
     password: "",
-    remeberMe: false,
+    rememberMe: false,
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Plaase enter valid email").required("Required"),
@@ -30,10 +30,10 @@ const SignIn = () => {
   const { googleSignIn, user, signIn } = UserAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values, { resetForm, setSubmiting }) => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     setTimeout(() => {
       resetForm();
-      setSubmiting(false);
+      setSubmitting(false);
     }, 800);
     try {
       await signIn(values.email, values.password);
@@ -125,7 +125,7 @@ const SignIn = () => {
                   sx={{ marginLeft: "0.3rem" }}
                   control={<Checkbox color="primary" />}
                   label="Remember Me"
-                  name="remeberMe"
+                  name="rememberMe"
                 />
                 <Button
                   type="submit"
