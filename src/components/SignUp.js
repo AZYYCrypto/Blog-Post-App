@@ -12,30 +12,69 @@ import {
   RadioGroup,
   TextField,
   Typography,
+  FormHelperText,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { UserAuth } from "../contexts/AuthContext";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const initialStateValuesForm = {
+    firstName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    termAndConditions: false,
+  };
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string()
+      .min(4, "Please Enter Valid First Name")
+      .required("First name is required"),
+    lastName: Yup.string()
+      .min(4, "Please Enter Valid Last Name")
+      .required("Last name is required"),
+    gender: Yup.string()
+      .oneOf(["male", "female"], "Gender is required")
+      .required("Gender is required"),
+    email: Yup.string()
+      .email("Please Enter Valid Email")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(8, "Password minimum lenght should be 8")
+      .required("Password is required"),
+    passwordConfirm: Yup.string()
+      .oneOf([Yup.ref("password")], "Confirm password not correct")
+      .required("Password confirmation is required"),
+    termAndConditions: Yup.string().oneOf(
+      ["true"],
+      "Accept terms & conditions"
+    ),
+  });
   const { googleSignIn, user, createUser } = UserAuth();
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    console.log(values);
+    setTimeout(() => {
+      resetForm();
+      setSubmitting(false);
+    }, 800);
     try {
-      await createUser(email, password);
+      await createUser(
+        values.email,
+
+        values.password
+      );
       navigate("/account");
     } catch (error) {
-      setError(error.message);
       console.log(error.message);
     }
   };
+
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -49,134 +88,177 @@ const SignUp = () => {
     }
   }, [user]);
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-      }}
-      component="form"
+    <Formik
+      initialValues={initialStateValuesForm}
       onSubmit={handleSubmit}
+      validationSchema={validationSchema}
     >
-      <Container maxWidth="sm">
-        <Paper
-          elevation={24}
+      {(props) => (
+        <Form
           sx={{
             display: "flex",
             flexDirection: "column",
-            margin: "2.5rem",
-            gap: "0.5rem",
+            gap: "1rem",
           }}
         >
-          <Grid align="center" sx={{ marginTop: "1rem" }}>
-            <Avatar sx={{ backgroundColor: "#1976D2" }}>
-              <AddCircleOutlineOutlinedIcon />
-            </Avatar>
+          <Container maxWidth="sm">
+            <Paper
+              elevation={24}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "2.5rem",
+                gap: "0.5rem",
+              }}
+            >
+              <Grid align="center" sx={{ marginTop: "1rem" }}>
+                <Avatar sx={{ backgroundColor: "#1976D2" }}>
+                  <AddCircleOutlineOutlinedIcon />
+                </Avatar>
 
-            <Typography variant="h4" sx={{ marginTop: "1rem" }}>
-              Sign Up
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <TextField
-                id="outlined-title-input"
-                label="First Name"
-                placeholder="Enter your first name"
-                type="text"
-                sx={{ margin: "1rem" }}
-                required
-              />
-              <TextField
-                id="outlined-title-input"
-                label="Last Name"
-                placeholder="Enter your last name"
-                type="text"
-                sx={{ margin: "1rem" }}
-                required
-              />
-
-              <TextField
-                id="outlined-title-input"
-                label="Email"
-                placeholder="Enter email"
-                type="email"
-                sx={{ margin: "1rem" }}
-                required
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "1rem",
-                }}
-              >
-                <FormLabel id="demo-radio-buttons-group-label">
-                  Gender
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
-                  sx={{ display: "initial" }}
-                >
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                </RadioGroup>
-              </Box>
-
-              <TextField
-                id="outlined-title-input"
-                label="Password"
-                placeholder="Enter password"
-                type="password"
-                sx={{ margin: "1rem" }}
-                required
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <TextField
-                id="outlined-title-input"
-                label="Confirm Password"
-                placeholder="Enter password"
-                type="password"
-                sx={{ margin: "1rem" }}
-                required
-              />
-              <FormControlLabel
-                control={<Checkbox name="checkedA" />}
-                label="I accept the terms and conditions"
-                sx={{ marginLeft: "0.3rem" }}
-              />
-              <Button type="submit" variant="contained" sx={{ margin: "1rem" }}>
-                Sign up
-              </Button>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  marginBottom: "2rem",
-                }}
-              >
-                <Typography>
-                  Already have an account yet?
-                  <Link to="/login" style={{ color: "#1976D2" }}>
-                    Sign In
-                  </Link>
+                <Typography variant="h4" sx={{ marginTop: "1rem" }}>
+                  Sign Up
                 </Typography>
-              </Box>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Field
+                    as={TextField}
+                    id="outlined-title-input"
+                    label="First Name"
+                    name="firstName"
+                    placeholder="Enter your first name"
+                    type="text"
+                    sx={{ margin: "1rem" }}
+                    helperText={
+                      <ErrorMessage name="firstName">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    id="outlined-title-input"
+                    label="Last Name"
+                    name="lastName"
+                    placeholder="Enter your last name"
+                    type="text"
+                    sx={{ margin: "1rem" }}
+                    helperText={
+                      <ErrorMessage name="lastName">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
 
-              {/* <Box
+                  <Field
+                    as={TextField}
+                    id="outlined-title-input"
+                    label="Email"
+                    name="email"
+                    placeholder="Enter email"
+                    type="email"
+                    sx={{ margin: "1rem" }}
+                    helperText={
+                      <ErrorMessage name="email">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: "1rem",
+                    }}
+                  >
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      Gender
+                    </FormLabel>
+                    <Field
+                      as={RadioGroup}
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      name="gender"
+                      sx={{ display: "initial" }}
+                    >
+                      <FormControlLabel
+                        value="male"
+                        control={<Radio />}
+                        label="Male"
+                      />
+                      <FormControlLabel
+                        value="female"
+                        control={<Radio />}
+                        label="Female"
+                      />
+                    </Field>
+                  </Box>
+                  <FormHelperText sx={{ textAlign: "center" }}>
+                    <ErrorMessage name="gender">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </FormHelperText>
+                  <Field
+                    as={TextField}
+                    id="outlined-title-input"
+                    label="Password"
+                    name="password"
+                    placeholder="Enter password"
+                    type="password"
+                    sx={{ margin: "1rem" }}
+                    helperText={
+                      <ErrorMessage name="password">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    id="outlined-title-input"
+                    label="Confirm Password"
+                    name="passwordConfirm"
+                    placeholder="Enter password"
+                    type="password"
+                    sx={{ margin: "1rem" }}
+                    helperText={
+                      <ErrorMessage name="passwordConfirm">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <FormControlLabel
+                    control={<Field as={Checkbox} name="termAndConditions" />}
+                    label="I accept the terms and conditions"
+                    sx={{ marginLeft: "0.3rem" }}
+                  />
+                  <FormHelperText sx={{ textAlign: "center" }}>
+                    <ErrorMessage name="termAndConditions">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </FormHelperText>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ margin: "1rem" }}
+                    disabled={props.isSubmitting}
+                  >
+                    {props.isSubmitting ? "Loading.." : "Sign up"}
+                  </Button>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginBottom: "2rem",
+                    }}
+                  >
+                    <Typography>
+                      Already have an account yet?
+                      <Link to="/login" style={{ color: "#1976D2" }}>
+                        Sign In
+                      </Link>
+                    </Typography>
+                  </Box>
+
+                  {/* <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -194,11 +276,13 @@ const SignUp = () => {
                   Continue with Google
                 </GoogleLoginButton>
               </Box> */}
-            </Box>
-          </Grid>
-        </Paper>
-      </Container>
-    </Container>
+                </Box>
+              </Grid>
+            </Paper>
+          </Container>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
