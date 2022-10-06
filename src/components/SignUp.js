@@ -33,6 +33,7 @@ const SignUp = () => {
     passwordConfirm: "",
     termAndConditions: false,
   };
+  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(4, "Please Enter Valid First Name")
@@ -48,6 +49,10 @@ const SignUp = () => {
       .required("Email is required"),
     password: Yup.string()
       .min(8, "Password minimum lenght should be 8")
+      .matches(
+        passwordRegEx,
+        "Password must have one upper,lower case,number,special symbols"
+      )
       .required("Password is required"),
     passwordConfirm: Yup.string()
       .oneOf([Yup.ref("password")], "Confirm password not correct")
