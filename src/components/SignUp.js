@@ -77,6 +77,7 @@ const SignUp = () => {
         id: user.uid,
         firstName: values.firstName,
         lastName: values.lastName,
+        email: values.email,
         gender: values.gender,
       });
       navigate("/account");
