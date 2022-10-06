@@ -42,7 +42,7 @@ const SignUp = () => {
       .min(4, "Please Enter Valid Last Name")
       .required("Last name is required"),
     gender: Yup.string()
-      .oneOf(["male", "female"], "Gender is required")
+      .oneOf(["Male", "Female"], "Gender is required")
       .required("Gender is required"),
     email: Yup.string()
       .email("Please Enter Valid Email")
@@ -190,12 +190,12 @@ const SignUp = () => {
                       sx={{ display: "initial" }}
                     >
                       <FormControlLabel
-                        value="male"
+                        value="Male"
                         control={<Radio />}
                         label="Male"
                       />
                       <FormControlLabel
-                        value="female"
+                        value="Female"
                         control={<Radio />}
                         label="Female"
                       />
