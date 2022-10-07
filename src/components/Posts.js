@@ -18,6 +18,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import DeleteDocIcon from "./DeleteDocIcon.js";
 import Loading from "./Loading";
+import { Link } from "react-router-dom";
 const Post = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [postList, setPostList] = useState([]);
@@ -105,7 +106,11 @@ const Post = () => {
               //     </IconButton>
               //   </CardActions>
               // </Card>
-              <Card sx={{ borderRadius: "20px" }}>
+              <Card
+                sx={{ borderRadius: "20px", textDecoration: "none" }}
+                component={Link}
+                to={`/post/${id}`}
+              >
                 <CardHeader
                   avatar={<Avatar aria-label="recipe"></Avatar>}
                   action={
