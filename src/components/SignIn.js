@@ -106,6 +106,7 @@ const SignIn = () => {
                       {(msg) => <div style={{ color: "red" }}>{msg}</div>}
                     </ErrorMessage>
                   }
+                  autoFocus={true}
                 />
                 <Field
                   as={TextField}
