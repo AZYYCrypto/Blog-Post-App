@@ -39,7 +39,7 @@ const SignIn = () => {
     }, 800);
     try {
       await signIn(values.email, values.password);
-      navigate("/account");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
