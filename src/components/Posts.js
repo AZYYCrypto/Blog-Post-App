@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardActionArea,
