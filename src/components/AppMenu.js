@@ -165,8 +165,13 @@ const AppMenu = () => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Button component={Link} to="/account">
-                    My Account
+                  <Button component={Link} to="/create-post">
+                    Create Post
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button component={Link} to="/profile-settings">
+                    Settings
                   </Button>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
