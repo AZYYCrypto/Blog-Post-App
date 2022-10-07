@@ -7,7 +7,7 @@ import Contact from "./components/Contact";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
-import MyAccount from "./components/MyAccount";
+import MyAccount from "./components/Settings";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer";
 import CreatePost from "./components/CreatePost";
