@@ -45,7 +45,7 @@ function App() {
               </Protected>
             }
           />
-          <Route path="/details/:id" element={<PostDetailPage />} />
+          <Route path="/post/:postId" element={<PostDetailPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
