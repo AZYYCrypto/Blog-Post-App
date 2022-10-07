@@ -7,7 +7,7 @@ const PostDetailPage = () => {
   const HeaderPost = styled(Box)({
     marginTop: "1rem",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
   });
   const ActionIcons = styled(Box)({
     display: "flex",
@@ -21,9 +21,8 @@ const PostDetailPage = () => {
   const PostInfo = styled(Box)({
     marginBottom: "20px",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     fontSize: "17px",
-    color: "blue",
   });
   const DescriptionPost = styled(Typography)({
     color: "#666",
@@ -31,7 +30,7 @@ const PostDetailPage = () => {
     lineHeight: "25px",
   });
   return (
-    <Container maxWidth="xl" sx={{ marginTop: "2rem" }}>
+    <Container maxWidth="lg" sx={{ marginTop: "2rem" }}>
       <img
         src="https://i0.wp.com/www.alphr.com/wp-content/uploads/2017/11/How-to-post-a-Live-Photo-on-Instagram1.jpg?fit=900%2C600&ssl=1"
         style={{
@@ -42,15 +41,10 @@ const PostDetailPage = () => {
         }}
       />
       <HeaderPost>
-        <Title>Learn React</Title>
-        <ActionIcons>
-          <EditIcon />
-          <DeleteIcon />
-        </ActionIcons>
+        <Title>Learn React & Quick guide to Generics in TypeScript</Title>
       </HeaderPost>
       <PostInfo>
-        <Box>Author:Dimitar Sabev</Box>
-        <Box>1 hour ago</Box>
+        <Typography>Dimitar Sabev · Oct 6, 2022 · 5 min read</Typography>
       </PostInfo>
       <DescriptionPost>
         lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
