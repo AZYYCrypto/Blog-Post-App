@@ -1,4 +1,4 @@
-import { Container, Paper, TextField, Typography } from "@mui/material";
+import { Box, Container, Paper, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
@@ -7,7 +7,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
-
+import AddIcon from "@mui/icons-material/Add";
 const CreatePost = () => {
   const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
@@ -69,6 +69,7 @@ const CreatePost = () => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          autoFocus={true}
         />
         <TextField
           variant="outlined"
