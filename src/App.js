@@ -7,7 +7,7 @@ import Contact from "./components/Contact";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
-import MyAccount from "./components/Settings";
+import Settings from "./components/Settings";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer";
 import CreatePost from "./components/CreatePost";
@@ -30,10 +30,10 @@ function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
           <Route
-            path="/account"
+            path="/profile-settings"
             element={
               <Protected>
-                <MyAccount />
+                <Settings />
               </Protected>
             }
           />
@@ -45,14 +45,7 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="/details/:id"
-            element={
-              <Protected>
-                <PostDetailPage />
-              </Protected>
-            }
-          />
+          <Route path="/details/:id" element={<PostDetailPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
