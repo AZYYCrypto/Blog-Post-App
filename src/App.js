@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import CreatePost from "./components/CreatePost";
 import Protected from "./components/Protected";
 import TermsAndConditions from "./components/TermsAndConditions";
+import PostDetailPage from "./components/PostDetailPage";
 function App() {
   return (
     <AuthContextProvider>
@@ -41,6 +42,14 @@ function App() {
             element={
               <Protected>
                 <CreatePost />
+              </Protected>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <Protected>
+                <PostDetailPage />
               </Protected>
             }
           />
