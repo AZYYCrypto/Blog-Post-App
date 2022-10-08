@@ -76,7 +76,7 @@ const PostDetailPage = () => {
         <Title>{post.title}</Title>
       </HeaderPost>
       <PostInfo>
-        <Typography>{`Dimitar Sabev · ${post.createdAt} · 5 min read`}</Typography>
+        <Typography>{`${post.author.name} · ${post.createdAt} · 5 min read`}</Typography>
       </PostInfo>
       <DescriptionPost>{post.description}</DescriptionPost>
     </Container>
