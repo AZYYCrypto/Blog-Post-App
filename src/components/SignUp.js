@@ -80,7 +80,7 @@ const SignUp = () => {
         email: values.email,
         gender: values.gender,
       });
-      navigate("/account");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
