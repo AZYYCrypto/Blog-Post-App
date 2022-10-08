@@ -1,22 +1,43 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
 import { db, auth, storage } from "../configs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect } from "react";
 const CreatePost = () => {
   const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUpload, setImageUpload] = useState("");
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
-  const postsCollectionRef = collection(db, "posts");
+
+  const userId = localStorage.getItem("uid");
+  const getUser = async () => {
+    try {
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        setUser(userSnap.data());
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUser();
+    console.log(user);
+  }, [userId]);
 
   const createPost = () => {
+    const postsCollectionRef = collection(db, "posts");
     if (!title || !description || !imageUpload) {
       alert("Please fill all the fields");
       return;
