@@ -1,7 +1,13 @@
 import { Box, Container, Paper, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
-import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  Timestamp,
+} from "firebase/firestore";
 import { db, auth, storage } from "../configs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -16,26 +22,21 @@ const CreatePost = () => {
   const [imageUpload, setImageUpload] = useState("");
   const [user, setUser] = useState("");
   const navigate = useNavigate();
-
   const userId = localStorage.getItem("uid");
   const getUser = async () => {
-    try {
-      const userRef = doc(db, "users", userId);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        setUser(userSnap.data());
-      } else {
-        console.log("Document does not exist");
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      if (doc.get("id") === userId) {
+        setUser(doc.data());
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
+
   useEffect(() => {
     getUser();
-    console.log(user);
-  }, [userId]);
+  }, []);
 
+  console.log();
   const createPost = () => {
     const postsCollectionRef = collection(db, "posts");
     if (!title || !description || !imageUpload) {
@@ -53,8 +54,8 @@ const CreatePost = () => {
           imageUrl: url,
           createdAt: Timestamp.now().toDate().toDateString(),
           author: {
-            name: auth.currentUser.displayName,
-            id: auth.currentUser.uid,
+            name: user.firstName + " " + user.lastName,
+            id: user.id,
           },
         }).then(() => {
           setImageUpload(null);
