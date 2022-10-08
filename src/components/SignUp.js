@@ -72,6 +72,8 @@ const SignUp = () => {
     }, 800);
     try {
       const { user } = await createUser(values.email, values.password);
+      localStorage.setItem("uid", user.uid);
+
       const usersCollectionRef = collection(db, "users");
       await addDoc(usersCollectionRef, {
         id: user.uid,
