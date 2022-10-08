@@ -38,7 +38,9 @@ const SignIn = () => {
       setSubmitting(false);
     }, 800);
     try {
-      await signIn(values.email, values.password);
+      const { user } = await signIn(values.email, values.password);
+
+      localStorage.setItem("uid", user.uid);
       navigate("/");
     } catch (error) {
       console.log(error.message);
