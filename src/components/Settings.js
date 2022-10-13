@@ -1,4 +1,11 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../contexts/AuthContext";
@@ -28,15 +35,16 @@ const Settings = () => {
         <Typography>Profile Picture</Typography>
         <Box sx={{ display: "flex", alignItems: "center", margin: "10px 0" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-mK6FeOOufW5lrJcpHSv54dTvHnOQvjFBs-QCsxvG&s"
-              style={{
+            <Avatar
+              sx={{
                 width: "70px",
                 height: "70px",
                 borderRadius: "20px",
                 objectFit: "cover",
               }}
+              src="https://secure.gravatar.com/avatar/136cb45477fdba38eeafeb0f222414a2?s=500&d=mm&r=g"
             />
+
             <label htmlFor="profilePicture">
               <AddBoxIcon />
             </label>

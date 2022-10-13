@@ -144,7 +144,7 @@ const AppMenu = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Account">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar sx={{ bgcolor: "orange" }}>D</Avatar>
+                  <Avatar src="https://secure.gravatar.com/avatar/136cb45477fdba38eeafeb0f222414a2?s=500&d=mm&r=g" />
                 </IconButton>
               </Tooltip>
 
