@@ -113,7 +113,7 @@ const PostDetailPage = () => {
       {updateMode ? (
         <input
           type="text"
-          value={title}
+          placeholder={post.title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -129,7 +129,7 @@ const PostDetailPage = () => {
       </PostInfo>
       {updateMode ? (
         <textarea
-          value={desc}
+          placeholder={post.description}
           onChange={(e) => {
             setDesc(e.target.value);
           }}
