@@ -14,9 +14,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../contexts/AuthContext";
 const Post = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [postList, setPostList] = useState([]);
+  const { postList, setPostList } = UserAuth();
+
   const postsCollectionRef = collection(db, "posts");
 
   const getPosts = async () => {
