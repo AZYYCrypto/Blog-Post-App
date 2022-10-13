@@ -6,12 +6,31 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../contexts/AuthContext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import { updateProfile } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../configs/firebase";
+import { v4 } from "uuid";
 const Settings = () => {
+  const [imageUpload, setImageUpload] = useState("");
+  const [email, setEmail] = useState("");
   const { user } = UserAuth();
+  console.log(user);
+  const handleUpdateUserInfo = () => {
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      getDownloadURL(imageRef).then((url) => {
+        updateProfile(user, {
+          photoURL: url,
+          email,
+        });
+      });
+    });
+  };
+
   return (
     <Container maxWidth="md">
       <Box
@@ -35,15 +54,31 @@ const Settings = () => {
         <Typography>Profile Picture</Typography>
         <Box sx={{ display: "flex", alignItems: "center", margin: "10px 0" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <Avatar
-              sx={{
-                width: "70px",
-                height: "70px",
-                borderRadius: "20px",
-                objectFit: "cover",
-              }}
-              src="https://secure.gravatar.com/avatar/136cb45477fdba38eeafeb0f222414a2?s=500&d=mm&r=g"
-            />
+            {user ? (
+              <Avatar
+                sx={{
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "20px",
+                  objectFit: "cover",
+                }}
+                src={
+                  imageUpload
+                    ? URL.createObjectURL(imageUpload)
+                    : user?.photoURL
+                }
+              />
+            ) : (
+              <Avatar
+                sx={{
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "20px",
+                  objectFit: "cover",
+                }}
+                src="https://secure.gravatar.com/avatar/136cb45477fdba38eeafeb0f222414a2?s=500&d=mm&r=g"
+              />
+            )}
 
             <label htmlFor="profilePicture">
               <AddBoxIcon />
@@ -51,12 +86,15 @@ const Settings = () => {
             <input
               type="file"
               id="profilePicture"
+              onChange={(e) => {
+                setImageUpload(e.target.files[0]);
+              }}
               style={{ display: "none" }}
             />
           </Box>
         </Box>
 
-        <TextField
+        {/* <TextField
           id="outlined-title-input"
           label="Username"
           type="username"
@@ -64,22 +102,29 @@ const Settings = () => {
             margin: "1rem 0",
           }}
           placeholder="AZYYCrypto"
-        />
+        /> */}
         <TextField
           id="outlined-title-input"
           label="Email"
           type="email"
           sx={{ margin: "1rem 0" }}
-          placeholder="azy@abv.bg"
+          placeholder={user.email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
-        <TextField
+        {/* <TextField
           id="outlined-title-input"
           label="Password"
           type="password"
           sx={{ margin: "1rem 0" }}
-        />
+        /> */}
 
-        <Button variant="contained" sx={{ maxWidth: "20%" }}>
+        <Button
+          variant="contained"
+          sx={{ maxWidth: "20%" }}
+          onClick={handleUpdateUserInfo}
+        >
           Update
         </Button>
       </Box>
