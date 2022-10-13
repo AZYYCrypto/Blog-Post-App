@@ -1,18 +1,22 @@
 import styled from "@emotion/styled";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import React, { useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import { useParams } from "react-router-dom";
 import { db } from "../configs/firebase";
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import DeleteDocIcon from "./DeleteDocIcon";
+import EditDocIcon from "./EditDocIcon";
 import Loading from "./Loading";
 import { UserAuth } from "../contexts/AuthContext";
 const PostDetailPage = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [updateMode, setUpdateMode] = useState(false);
+
   const { postId } = useParams();
   const { setPostList } = UserAuth();
   const getPost = async () => {
@@ -22,10 +26,22 @@ const PostDetailPage = () => {
       setPost(docSnap.data());
       setLoading(false);
     }
+    setTitle(post.title);
+    setDesc(post.description);
   };
   useEffect(() => {
     getPost();
   }, [postId]);
+
+  const handleUpdate = async () => {
+    try {
+      const docRef = doc(db, "posts", postId);
+      await updateDoc(docRef, { title: title, description: desc });
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const HeaderPost = styled(Box)({
     marginTop: "1rem",
@@ -54,11 +70,22 @@ const PostDetailPage = () => {
     fontSize: "18px",
     lineHeight: "25px",
   });
+  const UpdateButton = styled(Button)({
+    width: "200px",
+    padding: "5px",
+    marginTop: "20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    alignSelf: "flex-end",
+  });
   if (loading) {
     return <Loading />;
   }
   return (
-    <Container maxWidth="lg" sx={{ marginTop: "2rem" }}>
+    <Container
+      maxWidth="lg"
+      sx={{ marginTop: "2rem", display: "flex", flexDirection: "column" }}
+    >
       <img
         src={post.imageUrl}
         style={{
@@ -69,21 +96,45 @@ const PostDetailPage = () => {
         }}
       />
       <ActionIcons>
-        <EditIcon />
-
+        <EditDocIcon setUpdateMode={setUpdateMode} />
         <DeleteDocIcon
           imageUrl={post.imageUrl}
           id={postId}
           setPostList={setPostList}
         />
       </ActionIcons>
-      <HeaderPost>
-        <Title>{post.title}</Title>
-      </HeaderPost>
+      {updateMode ? (
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+      ) : (
+        <HeaderPost>
+          <Title>{post.title}</Title>
+        </HeaderPost>
+      )}
+
       <PostInfo>
         <Typography>{`${post.author.name} · ${post.createdAt} · 5 min read`}</Typography>
       </PostInfo>
-      <DescriptionPost>{post.description}</DescriptionPost>
+      {updateMode ? (
+        <textarea
+          value={desc}
+          onChange={(e) => {
+            setDesc(e.target.value);
+          }}
+        />
+      ) : (
+        <DescriptionPost>{post.description}</DescriptionPost>
+      )}
+      {updateMode ? (
+        <UpdateButton variant="contained" onClick={handleUpdate}>
+          Update Post
+        </UpdateButton>
+      ) : null}
     </Container>
   );
 };
