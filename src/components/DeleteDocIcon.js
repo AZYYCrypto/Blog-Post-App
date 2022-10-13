@@ -9,11 +9,10 @@ import { useNavigate } from "react-router-dom";
 const DeleteDocIcon = ({ imageUrl, id, setPostList }) => {
   const navigate = useNavigate();
   const handleDeletePost = async () => {
-    setPostList((oldpost) => oldpost.filter((post) => post.id !== id));
     try {
       await deleteDoc(doc(db, "posts", id));
-      const storageRef = ref(storage, imageUrl);
-      await deleteObject(storageRef);
+      setPostList((oldpost) => oldpost.filter((post) => post.id !== id));
+      await deleteObject(ref(storage, imageUrl));
       navigate("/");
     } catch (error) {
       console.log(error);

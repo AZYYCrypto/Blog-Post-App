@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Box, Container, Typography } from "@mui/material";
 import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useParams } from "react-router-dom";
 import { db } from "../configs/firebase";
 
@@ -10,11 +9,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import DeleteDocIcon from "./DeleteDocIcon";
 import Loading from "./Loading";
+import { UserAuth } from "../contexts/AuthContext";
 const PostDetailPage = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const { postId } = useParams();
-
+  const { setPostList } = UserAuth();
   const getPost = async () => {
     const docRef = doc(db, "posts", postId);
     const docSnap = await getDoc(docRef);
@@ -70,7 +70,12 @@ const PostDetailPage = () => {
       />
       <ActionIcons>
         <EditIcon />
-        <DeleteIcon />
+
+        <DeleteDocIcon
+          imageUrl={post.imageUrl}
+          id={postId}
+          setPostList={setPostList}
+        />
       </ActionIcons>
       <HeaderPost>
         <Title>{post.title}</Title>
