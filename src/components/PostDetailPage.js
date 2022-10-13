@@ -37,7 +37,14 @@ const PostDetailPage = () => {
     try {
       const docRef = doc(db, "posts", postId);
       await updateDoc(docRef, { title: title, description: desc });
-      window.location.reload();
+      setUpdateMode(false);
+      setPost((oldValue) => {
+        return {
+          ...oldValue,
+          title: title,
+          description: desc,
+        };
+      });
     } catch (error) {
       console.log(error);
     }
@@ -118,7 +125,7 @@ const PostDetailPage = () => {
       )}
 
       <PostInfo>
-        <Typography>{`${post.author.name} · ${post.createdAt} · 5 min read`}</Typography>
+        <Typography>{`${post.author?.name} · ${post.createdAt} · 5 min read`}</Typography>
       </PostInfo>
       {updateMode ? (
         <textarea
