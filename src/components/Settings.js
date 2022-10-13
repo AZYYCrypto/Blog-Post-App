@@ -12,7 +12,7 @@ import { UserAuth } from "../contexts/AuthContext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { updateEmail, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { auth, storage } from "../configs/firebase";
+import { storage } from "../configs/firebase";
 import { v4 } from "uuid";
 const Settings = () => {
   const [imageUpload, setImageUpload] = useState("");
