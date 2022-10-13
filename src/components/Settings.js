@@ -7,28 +7,32 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserAuth } from "../contexts/AuthContext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { updateProfile } from "firebase/auth";
+import { updateEmail, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../configs/firebase";
+import { auth, storage } from "../configs/firebase";
 import { v4 } from "uuid";
 const Settings = () => {
   const [imageUpload, setImageUpload] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   const { user } = UserAuth();
   console.log(user);
-  const handleUpdateUserInfo = () => {
+  const updateProfilePicture = () => {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then(() => {
       getDownloadURL(imageRef).then((url) => {
         updateProfile(user, {
           photoURL: url,
-          email,
         });
       });
     });
+  };
+  const handleUpdateUserInfo = async () => {
+    updateProfilePicture();
+    await updateEmail(user, email);
   };
 
   return (
