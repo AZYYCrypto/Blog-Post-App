@@ -18,7 +18,7 @@ const PostDetailPage = () => {
   const [updateMode, setUpdateMode] = useState(false);
 
   const { postId } = useParams();
-  const { setPostList } = UserAuth();
+  const { setPostList, user } = UserAuth();
   const getPost = async () => {
     const docRef = doc(db, "posts", postId);
     const docSnap = await getDoc(docRef);
@@ -102,14 +102,17 @@ const PostDetailPage = () => {
           objectFit: "cover",
         }}
       />
-      <ActionIcons>
-        <EditDocIcon setUpdateMode={setUpdateMode} />
-        <DeleteDocIcon
-          imageUrl={post.imageUrl}
-          id={postId}
-          setPostList={setPostList}
-        />
-      </ActionIcons>
+      {post.author.id === user.uid ? (
+        <ActionIcons>
+          <EditDocIcon setUpdateMode={setUpdateMode} />
+          <DeleteDocIcon
+            imageUrl={post.imageUrl}
+            id={postId}
+            setPostList={setPostList}
+          />
+        </ActionIcons>
+      ) : null}
+
       {updateMode ? (
         <input
           type="text"
