@@ -17,6 +17,7 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
 const SignIn = () => {
   const initialStateFormValues = {
     email: "",
@@ -43,7 +44,7 @@ const SignIn = () => {
       localStorage.setItem("uid", user.uid);
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   const handleGoogleSignIn = async () => {
@@ -68,6 +69,8 @@ const SignIn = () => {
         alignItems: "center",
       }}
     >
+      <Toaster />
+
       <Container maxWidth="sm">
         <Paper
           elevation={24}
