@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
 const CreatePost = () => {
   const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
@@ -40,7 +42,8 @@ const CreatePost = () => {
   const createPost = () => {
     const postsCollectionRef = collection(db, "posts");
     if (!title || !description || !imageUpload) {
-      alert("Please fill all the fields");
+      toast.error("Please fill all the fields");
+
       return;
     }
 
@@ -67,6 +70,7 @@ const CreatePost = () => {
   };
   return (
     <Container maxWidth="sm">
+      <Toaster />
       <Paper
         elevation={24}
         sx={{
