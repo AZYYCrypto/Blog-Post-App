@@ -98,7 +98,7 @@ const PostDetailPage = () => {
         src={post.imageUrl}
         style={{
           width: "100%",
-          height: "800px",
+          height: "35vh",
           borderRadius: "1rem",
           objectFit: "cover",
         }}
