@@ -58,35 +58,33 @@ const Post = () => {
           No Posts Yet
         </Typography>
       ) : (
-        postList.map(
-          ({ id, title, author, description, createdAt, imageUrl }) => {
-            return (
-              <Card
-                sx={{ borderRadius: "20px", textDecoration: "none" }}
-                component={Link}
-                to={`/post/${id}`}
-              >
-                <CardHeader avatar={<Avatar aria-label="recipe"></Avatar>} />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                  </Typography>
-                  <Typography gutterBottom component="div">
-                    {createdAt}
-                  </Typography>
-                </CardContent>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image={imageUrl}
-                    alt="alt text"
-                  />
-                </CardActionArea>
-              </Card>
-            );
-          }
-        )
+        postList.map(({ id, title, createdAt, imageUrl }) => {
+          return (
+            <Card
+              sx={{ borderRadius: "20px", textDecoration: "none" }}
+              component={Link}
+              to={`/post/${id}`}
+            >
+              <CardHeader avatar={<Avatar aria-label="recipe"></Avatar>} />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {title}
+                </Typography>
+                <Typography gutterBottom component="div">
+                  {createdAt}
+                </Typography>
+              </CardContent>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="300rem"
+                  image={imageUrl}
+                  alt="alt text"
+                />
+              </CardActionArea>
+            </Card>
+          );
+        })
       )}
     </StyledPageContainer>
   );
