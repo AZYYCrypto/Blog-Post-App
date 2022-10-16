@@ -14,6 +14,8 @@ import { updateEmail, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../configs/firebase";
 import { v4 } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
+
 const Settings = () => {
   const [imageUpload, setImageUpload] = useState("");
   const [email, setEmail] = useState("");
@@ -31,12 +33,24 @@ const Settings = () => {
     });
   };
   const handleUpdateUserInfo = async () => {
-    updateProfilePicture();
-    await updateEmail(user, email);
+    if (!email || !imageUpload) {
+      toast.error("Please fill all the fields");
+
+      return;
+    }
+    try {
+      updateProfilePicture();
+      await updateEmail(user, email);
+      toast.success("Changed profile picture & email successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
     <Container maxWidth="md">
+      <Toaster />
+
       <Box
         sx={{
           display: "flex",
