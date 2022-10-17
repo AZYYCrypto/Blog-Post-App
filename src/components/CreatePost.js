@@ -16,13 +16,16 @@ import { LoadingButton } from "@mui/lab";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { UserAuth } from "../contexts/AuthContext";
 
 const CreatePost = () => {
   const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUpload, setImageUpload] = useState("");
-  const [user, setUser] = useState("");
+  const [User, setUser] = useState("");
+  const { user } = UserAuth();
+
   const navigate = useNavigate();
   const userId = localStorage.getItem("uid");
   const getUser = async () => {
@@ -38,7 +41,6 @@ const CreatePost = () => {
     getUser();
   }, []);
 
-  console.log();
   const createPost = () => {
     const postsCollectionRef = collection(db, "posts");
     if (!title || !description || !imageUpload) {
@@ -57,8 +59,9 @@ const CreatePost = () => {
           imageUrl: url,
           createdAt: Timestamp.now().toDate().toDateString(),
           author: {
-            name: user.firstName + " " + user.lastName,
-            id: user.id,
+            name: User.firstName + " " + User.lastName,
+            id: User.id,
+            photoAvatar: user.photoURL,
           },
         }).then(() => {
           setImageUpload(null);
