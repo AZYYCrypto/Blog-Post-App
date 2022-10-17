@@ -81,8 +81,6 @@ const SignUp = () => {
         lastName: values.lastName,
         email: values.email,
         gender: values.gender,
-        userAvatar:
-          "https://secure.gravatar.com/avatar/136cb45477fdba38eeafeb0f222414a2?s=500&d=mm&r=g",
       });
       navigate("/");
     } catch (error) {
