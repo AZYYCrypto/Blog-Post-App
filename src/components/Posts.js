@@ -58,14 +58,14 @@ const Post = () => {
           No Posts Yet
         </Typography>
       ) : (
-        postList.map(({ id, title, createdAt, imageUrl }) => {
+        postList.map(({ id, title, createdAt, imageUrl, author }) => {
           return (
             <Card
               sx={{ borderRadius: "20px", textDecoration: "none" }}
               component={Link}
               to={`/post/${id}`}
             >
-              <CardHeader avatar={<Avatar aria-label="recipe"></Avatar>} />
+              <CardHeader avatar={<Avatar src={author.photoAvatar} />} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {title}
