@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
-import ErrorPage from "./components/ErrorPage";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import ErrorPage from "./pages/ErrorPage";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
-import Settings from "./components/Settings";
+import Settings from "./pages/Settings";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer";
-import CreatePost from "./components/CreatePost";
+import CreatePost from "./pages/CreatePost";
 import Protected from "./components/Protected";
-import TermsAndConditions from "./components/TermsAndConditions";
-import PostDetailPage from "./components/PostDetailPage";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PostDetailPage from "./pages/PostDetailPage";
 function App() {
   return (
     <AuthContextProvider>

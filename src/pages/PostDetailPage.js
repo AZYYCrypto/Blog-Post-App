@@ -6,9 +6,9 @@ import { db } from "../configs/firebase";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
-import DeleteDocIcon from "./DeleteDocIcon";
-import EditDocIcon from "./EditDocIcon";
-import Loading from "./Loading";
+import DeleteDocIcon from "../components/DeleteDocIcon";
+import EditDocIcon from "../components/EditDocIcon";
+import Loading from "../components/Loading";
 import { UserAuth } from "../contexts/AuthContext";
 const PostDetailPage = () => {
   const [post, setPost] = useState(null);
