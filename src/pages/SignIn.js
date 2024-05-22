@@ -155,12 +155,13 @@ const SignIn = () => {
             }}
           >
             <Typography>
-              <Link to="#" style={{ color: "#1976D2" }}>
+              {/* <Link to="#" style={{ color: "#1976D2" }}>
                 Forgot password?
-              </Link>
+              </Link> */}
             </Typography>
             <Typography>
               Do you have an account?
+                {" "}
               <Link to="/register" style={{ color: "#1976D2" }}>
                 Sign Up
               </Link>

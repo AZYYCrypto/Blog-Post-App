@@ -264,7 +264,7 @@ const SignUp = () => {
                     }}
                   >
                     <Typography>
-                      Already have an account yet?
+                      Already have an account yet?{" "}
                       <Link to="/login" style={{ color: "#1976D2" }}>
                         Sign In
                       </Link>
