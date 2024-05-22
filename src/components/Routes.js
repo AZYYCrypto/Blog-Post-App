@@ -27,32 +27,37 @@ const RoutesComp = () => {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route
-          path="/profile-settings"
-          element={
-            <PrivateRoute>
-              <Settings />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/create-post"
-          element={
-            <PrivateRoute>
-              <CreatePost />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/post/:postId" element={<PostDetailPage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <div style={{ minHeight: "70vh" }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route
+            path="/profile-settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/create-post"
+            element={
+              <PrivateRoute>
+                <CreatePost />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/post/:postId" element={<PostDetailPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
       <Footer />
     </>
   );
