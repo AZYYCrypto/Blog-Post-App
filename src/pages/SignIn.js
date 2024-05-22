@@ -22,7 +22,7 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -85,7 +85,6 @@ const SignIn = () => {
         alignItems: "center",
       }}
     >
-      <Toaster />
       <Container maxWidth="sm">
         <Paper
           elevation={24}
@@ -128,7 +127,9 @@ const SignIn = () => {
                   autoFocus={true}
                 />
                 <FormControl sx={{ margin: "1rem" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
                   <Field
                     as={OutlinedInput}
                     id="outlined-adornment-password"
@@ -185,8 +186,7 @@ const SignIn = () => {
               </Link> */}
             </Typography>
             <Typography>
-              Do you have an account?
-                {" "}
+              Do you have an account?{" "}
               <Link to="/register" style={{ color: "#1976D2" }}>
                 Sign Up
               </Link>

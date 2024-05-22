@@ -14,7 +14,7 @@ import { updateEmail, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../configs/firebase";
 import { v4 } from "uuid";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Settings = () => {
   const [imageUpload, setImageUpload] = useState("");
@@ -48,7 +48,6 @@ const Settings = () => {
 
   return (
     <Container maxWidth="md">
-      <Toaster />
 
       <Box
         sx={{

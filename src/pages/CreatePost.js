@@ -14,7 +14,7 @@ import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useAppContext } from "../contexts/AppContext";
 
 const CreatePost = () => {
@@ -71,7 +71,6 @@ const CreatePost = () => {
   };
   return (
     <Container maxWidth="sm">
-      <Toaster />
       <Paper
         elevation={24}
         sx={{

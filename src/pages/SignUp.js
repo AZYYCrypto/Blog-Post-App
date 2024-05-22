@@ -30,6 +30,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../configs/firebase";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -105,7 +106,8 @@ const SignUp = () => {
       });
       navigate("/");
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
+
     }
   };
 

@@ -14,6 +14,7 @@ import {
   TermsAndConditions,
 } from "../pages";
 import { useAppContext } from "../contexts/AppContext.js";
+import { Toaster } from "react-hot-toast";
 const RoutesComp = () => {
   const PrivateRoute = ({ children }) => {
     const { user } = useAppContext();
@@ -59,6 +60,7 @@ const RoutesComp = () => {
         </Routes>
       </div>
       <Footer />
+      <Toaster />
     </>
   );
 };
