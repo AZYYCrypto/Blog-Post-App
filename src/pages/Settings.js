@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { updateEmail, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -20,7 +20,7 @@ const Settings = () => {
   const [imageUpload, setImageUpload] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const { user } = UserAuth();
+  const { user } = useAppContext();
   console.log(user);
   const updateProfilePicture = () => {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);

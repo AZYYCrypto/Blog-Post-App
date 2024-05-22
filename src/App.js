@@ -8,7 +8,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
 import Settings from "./pages/Settings";
-import { AuthContextProvider } from "./contexts/AuthContext";
+import { AppContextProvider } from "./contexts/AppContext";
 import Footer from "./components/Footer";
 import CreatePost from "./pages/CreatePost";
 import Protected from "./components/Protected";
@@ -16,7 +16,7 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import PostDetailPage from "./pages/PostDetailPage";
 const App = () => {
   return (
-    <AuthContextProvider>
+    <AppContextProvider>
       <Router>
         <Header />
         <Routes>
@@ -50,7 +50,7 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-    </AuthContextProvider>
+    </AppContextProvider>
   );
 };
 

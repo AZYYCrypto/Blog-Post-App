@@ -16,11 +16,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useNavigate } from "react-router-dom";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 const AppMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user, logOut } = UserAuth();
+  const { user, logOut } = useAppContext();
   const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

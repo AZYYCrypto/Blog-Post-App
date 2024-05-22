@@ -1,4 +1,4 @@
-import { Box, Container, Paper, TextField, Typography } from "@mui/material";
+import { Container, Paper, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
 import {
@@ -8,15 +8,14 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-import { db, auth, storage } from "../configs/firebase";
+import { db, storage } from "../configs/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
-import AddIcon from "@mui/icons-material/Add";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 
 const CreatePost = () => {
   const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
@@ -24,7 +23,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState("");
   const [imageUpload, setImageUpload] = useState("");
   const [User, setUser] = useState("");
-  const { user } = UserAuth();
+  const { user } = useAppContext();
 
   const navigate = useNavigate();
   const userId = localStorage.getItem("uid");

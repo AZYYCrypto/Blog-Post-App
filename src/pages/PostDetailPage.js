@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import DeleteDocIcon from "../components/DeleteDocIcon";
 import EditDocIcon from "../components/EditDocIcon";
 import Loading from "../components/Loading";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 const PostDetailPage = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const PostDetailPage = () => {
   const [updateMode, setUpdateMode] = useState(false);
 
   const { postId } = useParams();
-  const { setPostList, user } = UserAuth();
+  const { setPostList, user } = useAppContext();
 
   const getPost = async () => {
     const docRef = doc(db, "posts", postId);

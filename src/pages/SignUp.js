@@ -18,7 +18,7 @@ import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
@@ -62,7 +62,7 @@ const SignUp = () => {
       "Accept terms & conditions"
     ),
   });
-  const { googleSignIn, user, createUser } = UserAuth();
+  const { googleSignIn, user, createUser } = useAppContext();
   const navigate = useNavigate();
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     console.log(values);

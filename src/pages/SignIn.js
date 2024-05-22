@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { UserAuth } from "../contexts/AuthContext";
+import { useAppContext } from "../contexts/AppContext";
 import React, { useEffect } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ const SignIn = () => {
       .required("Email is Required"),
     password: Yup.string().required("Password is Required"),
   });
-  const { googleSignIn, user, signIn } = UserAuth();
+  const { googleSignIn, user, signIn } = useAppContext();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {

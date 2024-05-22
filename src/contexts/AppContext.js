@@ -7,14 +7,14 @@ import {
   googleSignIn,
   logOut,
 } from "../services/UsersServices";
-const AuthContext = createContext();
+const AppContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
   const [postList, setPostList] = useState([]);
 
   return (
-    <AuthContext.Provider
+    <AppContext.Provider
       value={{
         googleSignIn,
         logOut,
@@ -26,10 +26,10 @@ export const AuthContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export const UserAuth = () => {
-  return useContext(AuthContext);
+export const useAppContext = () => {
+  return useContext(AppContext);
 };
