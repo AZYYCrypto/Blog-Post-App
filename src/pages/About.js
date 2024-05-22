@@ -27,7 +27,7 @@ const About = () => {
         much from others as possible.
       </Typography>
       <Typography sx={{ color: "#6B7280" }}>
-        I like to create new projects and practice my knowledge My projects and
+        I like to create new projects and practice my knowledge. My projects and
         what I have done so far can be found here:
         <Link href="https://github.com/dimitarsabev00" target="_blank">
           {` My GitHub`}
