@@ -1,6 +1,6 @@
 # Blog-Post-App
 
-### Open Project - [https://blog-post-application.netlify.app](https://blog-post-application.netlify.app/)
+### Open Project - [https://blog-post-app-a.vercel.app/](https://blog-post-app-a.vercel.app/)
 
 ## Available Scripts
 
