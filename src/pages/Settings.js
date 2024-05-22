@@ -63,9 +63,9 @@ const Settings = () => {
         >
           Update Your Account
         </Typography>
-        <Typography sx={{ color: "red", fontSize: "12px", cursor: "pointer" }}>
+        {/* <Typography sx={{ color: "red", fontSize: "12px", cursor: "pointer" }}>
           Delete Account
-        </Typography>
+        </Typography> */}
       </Box>
       <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <Typography>Profile Picture</Typography>
