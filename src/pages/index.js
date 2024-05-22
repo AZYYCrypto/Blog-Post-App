@@ -1,0 +1,10 @@
+export { default as HomePage } from "./HomePage";
+export { default as About } from "./About";
+export { default as Contact } from "./Contact";
+export { default as TermsAndConditions } from "./TermsAndConditions";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";
+export { default as Settings } from "./Settings";
+export { default as CreatePost } from "./CreatePost";
+export { default as PostDetailPage } from "./PostDetailPage";
+export { default as ErrorPage } from "./ErrorPage";
