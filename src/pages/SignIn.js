@@ -1,35 +1,49 @@
-import { LockOutlined } from "@mui/icons-material";
+import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Avatar,
   Box,
   Button,
   Checkbox,
   Container,
+  FormControl,
   FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { useAppContext } from "../contexts/AppContext";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
+
 const SignIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const initialStateFormValues = {
     email: "",
     password: "",
     rememberMe: false,
   };
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Plaase enter valid email")
-      .required("Email is Required"),
-    password: Yup.string().required("Password is Required"),
+      .email("Please enter a valid email")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
   });
+
   const { googleSignIn, user, signIn } = useAppContext();
   const navigate = useNavigate();
 
@@ -40,13 +54,13 @@ const SignIn = () => {
     }, 800);
     try {
       const { user } = await signIn(values.email, values.password);
-
       localStorage.setItem("uid", user.uid);
       navigate("/");
     } catch (error) {
       toast.error(error.message);
     }
   };
+
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -54,11 +68,13 @@ const SignIn = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (user != null) {
       navigate("/");
     }
   }, [user]);
+
   return (
     <Container
       sx={{
@@ -70,7 +86,6 @@ const SignIn = () => {
       }}
     >
       <Toaster />
-
       <Container maxWidth="sm">
         <Paper
           elevation={24}
@@ -112,22 +127,32 @@ const SignIn = () => {
                   }
                   autoFocus={true}
                 />
-                <Field
-                  as={TextField}
-                  id="outlined-title-input"
-                  label="Password"
-                  name="password"
-                  placeholder="Enter password"
-                  type="password"
-                  sx={{ margin: "1rem" }}
-                  required
-                  helperText={
-                    <ErrorMessage name="password">
-                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-
+                <FormControl sx={{ margin: "1rem" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                  <ErrorMessage name="password">
+                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  </ErrorMessage>
+                </FormControl>
                 <Field
                   as={FormControlLabel}
                   sx={{ marginLeft: "0.3rem" }}
