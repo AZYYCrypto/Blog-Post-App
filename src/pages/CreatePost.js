@@ -18,12 +18,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { useAppContext } from "../contexts/AppContext";
 
 const CreatePost = () => {
-  const [loadingSubmitPost, setLoadingSubmitPost] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUpload, setImageUpload] = useState("");
   const [User, setUser] = useState("");
-  const { user } = useAppContext();
+  const { user, isLoading, setIsLoading } = useAppContext();
 
   const navigate = useNavigate();
   const userId = localStorage.getItem("uid");
@@ -68,7 +67,7 @@ const CreatePost = () => {
         });
       });
     });
-    setLoadingSubmitPost(true);
+    setIsLoading(true);
   };
   return (
     <Container maxWidth="sm">
@@ -119,11 +118,11 @@ const CreatePost = () => {
         />
 
         <LoadingButton
-          loading={loadingSubmitPost}
+          loading={isLoading}
           loadingPosition="center"
           variant="contained"
           sx={{ margin: "1rem" }}
-          onChange={() => setLoadingSubmitPost(!loadingSubmitPost)}
+          onChange={() => setIsLoading((prev) => !prev)}
           onClick={createPost}
         >
           Submit Post

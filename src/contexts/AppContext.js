@@ -10,6 +10,8 @@ import {
 const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [user, loading, error] = useAuthState(auth);
   const [postList, setPostList] = useState([]);
 
@@ -23,6 +25,8 @@ export const AppContextProvider = ({ children }) => {
         signIn,
         postList,
         setPostList,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

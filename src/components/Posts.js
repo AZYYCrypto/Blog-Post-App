@@ -16,12 +16,12 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 const Post = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const { postList, setPostList } = useAppContext();
+  const { postList, setPostList, isLoading, setIsLoading } = useAppContext();
 
   const postsCollectionRef = collection(db, "posts");
 
   const getPosts = async () => {
+    setIsLoading(true);
     const data = await getDocs(postsCollectionRef);
     setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setIsLoading(false);

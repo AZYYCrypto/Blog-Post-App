@@ -12,20 +12,20 @@ import Loading from "../components/Loading";
 import { useAppContext } from "../contexts/AppContext";
 const PostDetailPage = () => {
   const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   const { postId } = useParams();
-  const { setPostList, user } = useAppContext();
+  const { setPostList, user, isLoading, setIsLoading } = useAppContext();
 
   const getPost = async () => {
+    setIsLoading(true);
     const docRef = doc(db, "posts", postId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       setPost(docSnap.data());
-      setLoading(false);
+      setIsLoading(false);
     }
     setTitle(post.title);
     setDesc(post.description);
@@ -86,7 +86,7 @@ const PostDetailPage = () => {
     cursor: "pointer",
     alignSelf: "flex-end",
   });
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
   return (
@@ -95,7 +95,7 @@ const PostDetailPage = () => {
       sx={{ marginTop: "2rem", display: "flex", flexDirection: "column" }}
     >
       <img
-        src={post.imageUrl}
+        src={post?.imageUrl}
         style={{
           width: "100%",
           height: "35vh",
@@ -103,11 +103,11 @@ const PostDetailPage = () => {
           objectFit: "cover",
         }}
       />
-      {post.author?.id === user?.uid ? (
+      {post?.author?.id === user?.uid ? (
         <ActionIcons>
           <EditDocIcon setUpdateMode={setUpdateMode} />
           <DeleteDocIcon
-            imageUrl={post.imageUrl}
+            imageUrl={post?.imageUrl}
             id={postId}
             setPostList={setPostList}
           />
@@ -117,29 +117,29 @@ const PostDetailPage = () => {
       {updateMode ? (
         <input
           type="text"
-          placeholder={post.title}
+          placeholder={post?.title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
       ) : (
         <HeaderPost>
-          <Title>{post.title}</Title>
+          <Title>{post?.title}</Title>
         </HeaderPost>
       )}
 
       <PostInfo>
-        <Typography>{`${post.author?.name} · ${post.createdAt} · 5 min read`}</Typography>
+        <Typography>{`${post?.author?.name} · ${post?.createdAt} · 5 min read`}</Typography>
       </PostInfo>
       {updateMode ? (
         <textarea
-          placeholder={post.description}
+          placeholder={post?.description}
           onChange={(e) => {
             setDesc(e.target.value);
           }}
         />
       ) : (
-        <DescriptionPost>{post.description}</DescriptionPost>
+        <DescriptionPost>{post?.description}</DescriptionPost>
       )}
       {updateMode ? (
         <UpdateButton variant="contained" onClick={handleUpdate}>
