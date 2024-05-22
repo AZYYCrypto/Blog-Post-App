@@ -14,7 +14,7 @@ import CreatePost from "./pages/CreatePost";
 import Protected from "./components/Protected";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PostDetailPage from "./pages/PostDetailPage";
-function App() {
+const App = () => {
   return (
     <AuthContextProvider>
       <Router>
@@ -52,6 +52,6 @@ function App() {
       </Router>
     </AuthContextProvider>
   );
-}
+};
 
 export default App;
