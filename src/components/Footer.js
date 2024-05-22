@@ -6,6 +6,9 @@ export default function Footer() {
       px={{ xs: 3, sm: 10 }}
       py={{ xs: 5, sm: 5 }}
       marginTop={5}
+      position={"fixed"}
+      bottom={0}
+      width={"100%"}
       bgcolor="#1976D2"
       color="white"
       component="footer"
