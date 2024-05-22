@@ -1,18 +1,25 @@
+import { useState } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Avatar,
   Button,
   Checkbox,
   Container,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   FormLabel,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Paper,
   Radio,
   RadioGroup,
   TextField,
   Typography,
-  FormHelperText,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
@@ -23,7 +30,19 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../configs/firebase";
+
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword((prev) => !prev);
+  };
+
   const initialStateValuesForm = {
     firstName: "",
     lastName: "",
@@ -33,6 +52,7 @@ const SignUp = () => {
     passwordConfirm: "",
     termAndConditions: false,
   };
+
   const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -48,10 +68,10 @@ const SignUp = () => {
       .email("Please Enter Valid Email")
       .required("Email is required"),
     password: Yup.string()
-      .min(8, "Password minimum lenght should be 8")
+      .min(8, "Password minimum length should be 8")
       .matches(
         passwordRegEx,
-        "Password must have one upper,lower case,number,special symbols"
+        "Password must have one upper, lower case, number, special symbols"
       )
       .required("Password is required"),
     passwordConfirm: Yup.string()
@@ -62,8 +82,10 @@ const SignUp = () => {
       "Accept terms & conditions"
     ),
   });
+
   const { googleSignIn, user, createUser } = useAppContext();
   const navigate = useNavigate();
+
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     setTimeout(() => {
       resetForm();
@@ -94,11 +116,13 @@ const SignUp = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (user != null) {
       navigate("/account");
     }
   }, [user]);
+
   return (
     <Formik
       initialValues={initialStateValuesForm}
@@ -209,34 +233,66 @@ const SignUp = () => {
                       {(msg) => <div style={{ color: "red" }}>{msg}</div>}
                     </ErrorMessage>
                   </FormHelperText>
-                  <Field
-                    as={TextField}
-                    id="outlined-title-input"
-                    label="Password"
-                    name="password"
-                    placeholder="Enter password"
-                    type="password"
-                    sx={{ margin: "1rem" }}
-                    helperText={
-                      <ErrorMessage name="password">
-                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                      </ErrorMessage>
-                    }
-                  />
-                  <Field
-                    as={TextField}
-                    id="outlined-title-input"
-                    label="Confirm Password"
-                    name="passwordConfirm"
-                    placeholder="Enter password"
-                    type="password"
-                    sx={{ margin: "1rem" }}
-                    helperText={
-                      <ErrorMessage name="passwordConfirm">
-                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                      </ErrorMessage>
-                    }
-                  />
+                  <FormControl sx={{ margin: "1rem" }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">
+                      Password
+                    </InputLabel>
+                    <Field
+                      as={OutlinedInput}
+                      id="outlined-adornment-password"
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Enter password"
+                      required
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                    <ErrorMessage name="password">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </FormControl>
+                  <FormControl sx={{ margin: "1rem" }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-confirm-password">
+                      Confirm Password
+                    </InputLabel>
+                    <Field
+                      as={OutlinedInput}
+                      id="outlined-adornment-confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="passwordConfirm"
+                      placeholder="Enter password"
+                      required
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle confirm password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            edge="end"
+                          >
+                            {showConfirmPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Confirm Password"
+                    />
+                    <ErrorMessage name="passwordConfirm">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </FormControl>
                   <FormControlLabel
                     control={<Field as={Checkbox} name="termAndConditions" />}
                     label="I accept the terms and conditions"
