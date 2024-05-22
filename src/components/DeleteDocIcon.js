@@ -15,7 +15,7 @@ const DeleteDocIcon = ({ imageUrl, id, setPostList }) => {
       await deleteObject(ref(storage, imageUrl));
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

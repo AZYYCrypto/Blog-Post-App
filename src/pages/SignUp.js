@@ -65,7 +65,6 @@ const SignUp = () => {
   const { googleSignIn, user, createUser } = useAppContext();
   const navigate = useNavigate();
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-    console.log(values);
     setTimeout(() => {
       resetForm();
       setSubmitting(false);
@@ -84,7 +83,7 @@ const SignUp = () => {
       });
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
 
@@ -92,7 +91,7 @@ const SignUp = () => {
     try {
       await googleSignIn();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {

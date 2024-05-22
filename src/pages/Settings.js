@@ -21,7 +21,6 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const { user } = useAppContext();
-  console.log(user);
   const updateProfilePicture = () => {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then(() => {
